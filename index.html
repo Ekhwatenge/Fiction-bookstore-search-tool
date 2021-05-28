@@ -1,0 +1,201 @@
+<!-- BOOK TEMPLATE -->
+<template id="book-template">
+  <style>
+    /* Layout Container */
+    :host {
+      display: block;
+      contain: layout style inline-size;
+      perspective:1000px;
+      cursor: grab;
+    }
+    
+    /* Base Styles */
+    ::slotted(img) {
+      display:block;
+      width:100%;
+      height: auto;
+      border-radius: 0px 2px 2px 0px;
+      background-color: var(--cover-color);
+    }
+    .book {
+      font-size: var(--font-size, 1rem);
+      font-weight: 400;
+    }
+    .meta {
+      padding-top: 1em;
+      line-height: 1.3;
+    }
+    .title {
+      font-size: 1.25em;
+      font-family: "Merriweather", serif;
+      margin:0 0 .5rem 0;
+    }
+    .author {
+      font-size: .875em;
+      font-family: sans-serif;
+      margin:0;
+    }
+    
+    /* Small Variant */
+    @container (max-width: 200px) {
+      .book {
+        --font-size: .5rem;
+      }
+      .author {
+        display: none;
+      }
+    }
+    
+    /* Medium Variant */
+    @container (min-width: 201px) and (max-width: 399px) {
+      .book {
+        --font-size: 1rem;
+        display: grid;
+        align-items: start;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+    }
+    
+    /* Large Variant */
+    @container (min-width: 400px) {
+      ::slotted(img) {
+        transform: translateZ(40px);
+        box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
+      }
+      .book {
+        --font-size: 1.5rem;
+        padding:1rem;
+      }
+      .front {
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotateY(-25deg);
+        transition: transform .5s ease;
+      }
+      .front::before {
+        position: absolute;
+        content: ' ';
+        left: 100%;
+        top: 1%;
+        width: 80px;
+        height: 98%;
+        transform: translate(-55%,0) rotateY(
+    90deg
+    );
+        background: linear-gradient(
+    90deg
+    , #fff 0%, #f9f9f9 5%, #fff 10%, #f9f9f9 15%, #fff 20%, #f9f9f9 25%, #fff 30%, #f9f9f9 35%, #fff 40%, #f9f9f9 45%, #fff 50%, #f9f9f9 55%, #fff 60%, #f9f9f9 65%, #fff 70%, #f9f9f9 75%, #fff 80%, #f9f9f9 85%, #fff 90%, #f9f9f9 95%, #fff 100% );
+      }
+      .front::after {
+        position: absolute;
+        top: 0;
+        left: 1%;
+        content: ' ';
+        width: 100%;
+        height: 100%;
+        transform: translateZ(-40px);
+        background-color: var(--cover-color, #000);
+        border-radius: 0 2px 2px 0;
+        box-shadow: -10px 0 50px 10px rgba(0,0,0,0.3);
+      }
+    }
+  </style>
+  <article class="book">
+    <div class="front">
+      <slot name="cover"></slot>
+    </div>
+    <div class="meta">
+      <h2 class="title"><slot name="title"></slot></h2>
+      <p class="author"><slot name="author"></slot></p>
+    </div>
+  </article>
+</template>
+<!-- END BOOK TEMPLATE -->
+
+
+
+<div class="layout">
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="logo">CQ Bookstore</h1>
+    <p class="by">by <a href="https://mxb.dev">MXB</a></p>
+  </header>
+
+  <!-- FEATURED STAGE -->
+  <div class="stage js-drag-container">
+    <h2 class="capitals">Featured</h2>
+    
+      <book-element color="#52947c">
+        <img slot="cover" src="https://assets.codepen.io/1256430/oz.avif" alt="" />
+        <span slot="title">The Wizard of Oz</span>
+        <span slot="author">L. Frank Baum</span>
+      </book-element>
+
+  </div>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="content">
+    <h2 class="capitals">Bestsellers</h2>
+
+    <div class="support-notice">
+      ⚠️ Your browser does not support Container Queries - Enable them in Chrome Canary at chrome://flags to see this demo.
+    </div>
+
+    <div class="booklist js-drag-container">
+      
+      <book-element color="#BA423D">
+        <img slot="cover" src="https://assets.codepen.io/1256430/1984.avif" alt="" />
+        <span slot="title">1984</span>
+        <span slot="author">George Orwell</span>
+      </book-element>
+
+      <book-element color="#d2d5dc">
+        <img slot="cover" src="https://assets.codepen.io/1256430/little-women.avif" alt="" />
+        <span slot="title">Little Women</span>
+        <span slot="author">Louisa May Alcott</span>
+      </book-element>
+
+      <book-element color="#fefef2">
+        <img slot="cover" src="https://assets.codepen.io/1256430/fahrenheit-451.avif" alt="" />
+        <span slot="title">Fahrenheit 451</span>
+        <span slot="author">Ray Bradbury</span>
+      </book-element>
+      
+      <book-element color="#0c0d12">
+        <img slot="cover" src="https://assets.codepen.io/1256430/moby-dick.avif" alt="" />
+        <span slot="title">Moby Dick</span>
+        <span slot="author">Herman Melville</span>
+      </book-element>
+      
+      <book-element color="#1480a8"> 
+        <img slot="cover" src="https://assets.codepen.io/1256430/pride.avif" alt="" />
+        <span slot="title">Pride and Prejudice</span>
+        <span slot="author">Jane Austen</span>
+      </book-element>
+      
+      <book-element color="#cb0f2d">
+        <img slot="cover" src="https://assets.codepen.io/1256430/sputnik-sweetheart.avif" alt="" />
+        <span slot="title">Sputnik Sweetheart</span>
+        <span slot="author">Haruki Murakami</span>
+      </book-element>
+
+    </div>
+  </main>
+
+
+  <!-- SHOPPING CART -->
+  <div class="cart js-drag-container">
+    <h2 class="capitals">Cart</h2>
+    
+    <book-element color="#067682">
+      <img slot="cover" src="https://assets.codepen.io/1256430/don-quixote.avif" alt="" />
+      <span slot="title">Don Quixote</span>
+      <span slot="author">Miguel de Cervantes</span>
+    </book-element>
+
+  </div>
+</div>
+
+<!-- INCLUDE DRAGULA.JS -->
+<script src="https://unpkg.com/dragula@3.7.2/dist/dragula.min.js"></script>
